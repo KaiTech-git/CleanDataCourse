@@ -1,5 +1,10 @@
 #Upload
 library(dplyr)
+#Function that assigns the corresponding activity to numbers
+assign_l<-function(value, lab=labels){ 
+        x<- lab[value,2]
+        x
+} 
 #Downloading all data that the program will useDownloading all data that the program will use.
 train_x<-read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE) # czyta plik
 train_sub <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE) # czyta plik
@@ -40,12 +45,9 @@ names(Ex_data) <-names_data
 
 Ex_data2<- Ex_data # independent data set
 Ex_data2 <- group_by(Ex_data, activity, subject) #grouping data by activity and subject
-sum_data<- summarise_all(Ex_data2, mean) #data set with the average of each variable
+sum_data<- summarise_each(Ex_data2, mean) #data set with the average of each variable
+sum_data$activity<-as.factor(sum_data$activity)
+write.table(sum_data, "summarised_data.txt", row.name = FALSE)
 
 
 
-#Function that assigns the corresponding activity to numbers
-assign_l<-function(value, lab=labels){ 
-        x<- lab[value,2]
-        x
-} 
