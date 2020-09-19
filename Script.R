@@ -20,7 +20,9 @@ All_x <- rbind(test_x, train_x)
 All_y <- rbind(test_y, train_y)
 All_sub <- rbind(test_sub, train_sub)
 #Gathering all data into one table
-All_data <-mutate(All_x, activity = All_y, subject = All_sub)
+names(All_y)<- "V562" #consecutive column numbers given to the new column
+names(All_sub)<- "V563"
+All_data<- cbind(All_x, All_y,  All_sub) #the data has been joined by columns
 
 
 #Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -31,7 +33,8 @@ columns <- c(length(All_data), length(All_data)-1, mean_select, sdt_select)
 Ex_data <- select(All_data,all_of(columns)) #Extracted Data
 
 #Uses descriptive activity names to name the activities in the data set
-Ex_data<-mutate(Ex_data, activity = sapply(activity,assign_l))
+Ex_data<-mutate(Ex_data, V562 = sapply(V562,assign_l)) #Names of the activities have been assigned to the numbers.
+#function assign_l() has been created for assigning activities to numbers.
 
 #Appropriately labels the data set with descriptive variable names.
 mean_names<- grep("(.*)mean(.*)", features[,2], value = TRUE)
@@ -46,8 +49,9 @@ names(Ex_data) <-names_data
 Ex_data2<- Ex_data # independent data set
 Ex_data2 <- group_by(Ex_data, activity, subject) #grouping data by activity and subject
 sum_data<- summarise_each(Ex_data2, mean) #data set with the average of each variable
-sum_data$activity<-as.factor(sum_data$activity)
-write.table(sum_data, "summarised_data.txt", row.name = FALSE)
+write.table(sum_data, "summarised_data.txt", row.name = FALSE) #saving data to a txt file
 
+#data can be read using this command:
+#sum_rec<-read.table("summarised_data.txt", header = TRUE)
 
 
