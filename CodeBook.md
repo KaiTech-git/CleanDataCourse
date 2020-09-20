@@ -59,4 +59,5 @@ tBodyAccMean</br>
 tBodyAccJerkMean</br>
 tBodyGyroMean</br>
 tBodyGyroJerkMean*
+__All this measurements were grouped by activity and subject and average of those value was calculated for the groups.__
 
