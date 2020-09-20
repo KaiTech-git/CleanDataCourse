@@ -58,7 +58,23 @@ sdt_names<- grep("(.*)std(.*)", features[,2], value = TRUE)
 names_data<- c("subject", "activity", mean_names, sdt_names) 
 names(Ex_data) <-names_data
 ```
-## 6. Independent tidy data set with summary
+## 6. Independent tidy data set with the average of each variable for each activity and each subject.
+This task were performed in 5 steps:
+1. New data set were created and named *Ex_data2* </br>
+2. *Ex_data2* were grouped by activity and subiect in such order <code> Ex_data2 <- group_by(Ex_data, activity, subject) </code>
+3. Tidy data set with the average of each variable for each activity and each subject were created and named *sum_data*.
+  ```
+  sum_data<- summarise_each(Ex_data2, mean) 
+  ```
+4. *sum_data* were written at working directory in txt format.
+```
+   write.table(sum_data, "summarised_data.txt", row.name = FALSE)          
+```
+## Reading file 
+the file can be correctly read with the command 
+```
+sum_rec<-read.table("summarised_data.txt", header = TRUE)             
+```
 
 
   
