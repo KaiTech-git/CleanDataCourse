@@ -14,14 +14,14 @@ Code example for reading:
 train_x<-read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE)</code> 
   
 ## 2. Merging data 
-The experiment was conducted in two groups *test* (30% of participants) and *train* (70% of participants). For this reason, before the merge into one complete data series, the corresponding columns of the variables from the different trials had to be combined with each other. Columnes were merged with function __rbind()__.
+The experiment was conducted in two groups *test* (30% of participants) and *train* (70% of participants). For this reason, before the merge into one complete data series, the corresponding columns of the variables from the different trials had to be combined with each other. Columns were merged with function __rbind()__.
 This is how variables *All_x*, *All_y* and *All_sub* were created.
 Code example for merging by rows:
 <code>
 All_x <- rbind(test_x, train_x))</code> </br>
 
 Vectors *All_y* and *All_sub* were to be added as the last two columns of *All_x* table, that is why they have been assigned the names V562 and V563.</br>
-Finaly *All_x*, *All_y* and *All_sub* were merged together by cloumns with function __cbind()__ and assigned to *All_data*. 
+Finally *All_x*, *All_y* and *All_sub* were merged together by columns with function __cbind()__ and assigned to *All_data*. 
 
 ## 3. Extracting measurements
 Extracting mean and standard deviation for each measurement from all data was performed in three steps.</br>
@@ -31,11 +31,11 @@ Extracting mean and standard deviation for each measurement from all data was pe
   mean_select<-grep("(.*)mean(.*)", features[,2]),
   sdt_select <-grep("(.*)std(.*)", features[,2])
   ```
-  2. Vector composed of selected colum numbers were created. 
+  2. Vector composed of selected column numbers were created. 
   ```
   columns <- c(length(All_data), length(All_data)-1, mean_select, sdt_select)
   ```
-  *length(All_data)* and *length(All_data)-1* represented the numbers of the last two columns: activities and subjects (particpants).
+  *length(All_data)* and *length(All_data)-1* represented the numbers of the last two columns: activities and subjects (participants).
   
   3. Assignment of selected columns with use of function __select()__ to variable *Ex_data*.
   ```
@@ -51,7 +51,7 @@ assign_l<-function(value, lab=labels){
 } 
 ```
 ## 5. Labeling data set with descriptive variable names
-All measurment column names were gather with simpul change in previously used function __grep()__. Vector *names_data* with all column names were assigned to *Ex_data* names.
+All measurement column names were gather with simple change in previously used function __grep()__. Vector *names_data* with all column names were assigned to *Ex_data* names.
 ```
 mean_names<- grep("(.*)mean(.*)", features[,2], value = TRUE)
 sdt_names<- grep("(.*)std(.*)", features[,2], value = TRUE)
@@ -61,7 +61,7 @@ names(Ex_data) <-names_data
 ## 6. Independent tidy data set with the average of each variable for each activity and each subject.
 This task were performed in 5 steps:
 1. New data set were created and named *Ex_data2* </br>
-2. *Ex_data2* were grouped by activity and subiect in such order <code> Ex_data2 <- group_by(Ex_data, activity, subject) </code>
+2. *Ex_data2* were grouped by activity and subject in such order <code> Ex_data2 <- group_by(Ex_data, activity, subject) </code>
 3. Tidy data set with the average of each variable for each activity and each subject were created and named *sum_data*.
   ```
   sum_data<- summarise_each(Ex_data2, mean) 
