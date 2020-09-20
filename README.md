@@ -25,7 +25,40 @@ Finaly *All_x*, *All_y* and *All_sub* were merged together by cloumns with funct
 
 ## 3. Extracting measurements
 Extracting mean and standard deviation for each measurement from all data was performed in three steps.</br>
+  
   1. Numbers of all columns in which mean() or std() characters appeared were found. It was done with by applying __grep()__ function to *features*.</br>
-  <code>mean_select<-grep("(.*)mean(.*)", features[,2])</br>
-  sdt_select <-grep("(.*)std(.*)", features[,2])</code> 
-  2. 
+  ``` 
+  mean_select<-grep("(.*)mean(.*)", features[,2]),
+  sdt_select <-grep("(.*)std(.*)", features[,2])
+  ```
+  2. Vector composed of selected colum numbers were created. 
+  ```
+  columns <- c(length(All_data), length(All_data)-1, mean_select, sdt_select)
+  ```
+  *length(All_data)* and *length(All_data)-1* represented the numbers of the last two columns: activities and subjects (particpants).
+  
+  3. Assignment of selected columns with use of function __select()__ to variable *Ex_data*.
+  ```
+  Ex_data <- select(All_data,all_of(columns))
+  ```
+## 4. Adding descriptive activity names
+Names of activities were assigned to column V562 by applying previously created function __assign_l()__ to column V562.
+```
+Ex_data<-mutate(Ex_data, V562 = sapply(V562,assign_l))
+assign_l<-function(value, lab=labels){ 
+        x<- lab[value,2]
+        x
+} 
+```
+## 5. Labeling data set with descriptive variable names
+All measurment column names were gather with simpul change in previously used function __grep()__. Vector *names_data* with all column names were assigned to *Ex_data* names.
+```
+mean_names<- grep("(.*)mean(.*)", features[,2], value = TRUE)
+sdt_names<- grep("(.*)std(.*)", features[,2], value = TRUE)
+names_data<- c("subject", "activity", mean_names, sdt_names) 
+names(Ex_data) <-names_data
+```
+## 6. Independent tidy data set with summary
+
+
+  
