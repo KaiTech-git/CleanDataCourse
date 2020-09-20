@@ -58,6 +58,6 @@ Five more variables are present in data set those are  vectors obtained by avera
 tBodyAccMean</br>
 tBodyAccJerkMean</br>
 tBodyGyroMean</br>
-tBodyGyroJerkMean*
+tBodyGyroJerkMean*</br>
 __All this measurements were grouped by activity and subject and average of those value was calculated for the groups.__
 
