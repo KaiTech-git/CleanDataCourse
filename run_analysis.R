@@ -5,13 +5,13 @@ assign_l<-function(value, lab=labels){
         x<- lab[value,2]
         x
 } 
-#Downloading all data that the program will useDownloading all data that the program will use.
-train_x<-read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE) # czyta plik
-train_sub <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE) # czyta plik
-train_y <- read.table("UCI HAR Dataset/train/y_train.txt", header = FALSE) # czyta plik
-test_x <- test_x<- read.table("UCI HAR Dataset/test/X_test.txt", header = FALSE)# czyta plik
-test_y <- read.table("UCI HAR Dataset/test/y_test.txt", header = FALSE) # czyta plik
-test_sub <- read.table("UCI HAR Dataset/test/subject_test.txt", header = FALSE) # czyta plik
+#Downloading all data that the program will use.
+train_x<-read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE) 
+train_sub <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE) 
+train_y <- read.table("UCI HAR Dataset/train/y_train.txt", header = FALSE) 
+test_x <- test_x<- read.table("UCI HAR Dataset/test/X_test.txt", header = FALSE)
+test_y <- read.table("UCI HAR Dataset/test/y_test.txt", header = FALSE) 
+test_sub <- read.table("UCI HAR Dataset/test/subject_test.txt", header = FALSE) 
 features <- read.table("UCI HAR Dataset/features.txt", header = FALSE) 
 labels<- read.table("UCI HAR Dataset/activity_labels.txt", header = FALSE)
 
